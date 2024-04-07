@@ -1,0 +1,218 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello Doctor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="ano
+      nymous"
+    />
+    <style>
+      .container {
+        display: flex;
+        gap: 20px;
+        position: relative;
+      }
+      table,
+      td,
+      th,
+      thead {
+        padding: 2px;
+        border: 1px solid black;
+      }
+
+      table {
+        width: 100%;
+
+        text-align: center;
+      }
+      #backbtn {
+        position: absolute;
+        bottom: 40px;
+      }
+      span {
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+      .hi1 {
+        margin: 10px;
+        padding: 4px;
+      }
+      .list-group-item {
+        display: flex;
+        flex-direction: row;
+        border: 2px solid white;
+      }
+      .box {
+        width: 250px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
+      }
+      .rgi {
+        margin-left: 200px;
+        padding: 10px 20px;
+        font-size: larger;
+        font-weight: 200;
+        font-style: italic;
+      }
+      .active {
+        position: sticky;
+      }
+      ul {
+        overflow: scroll;
+      }
+      .box1 {
+        width: 130px;
+        padding-bottom: 5px;
+      }
+      h1 {
+        text-align: center;
+        font-style: italic;
+        margin: 20px;
+      }
+      .hehe {
+        margin: 20px;
+      }
+      * {
+        text-transform: capitalize;
+      }
+      ul {
+        overflow: scroll;
+        height: 340px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html">Hello Doctor</a>
+        <form class="d-flex">
+          <a class="navbar-brand" id="shared_data"></a>
+
+          <button class="btn btn-outline-success" type="submit">
+            <a href="../index.html" id="logpage">logOut</a>
+          </button>
+        </form>
+      </div>
+    </nav>
+    <figure class="text-center hehe">
+      <blockquote class="blockquote">
+        <p>Keep Clam And Book Your Appointment Now</p>
+      </blockquote>
+      <figcaption class="blockquote-footer">
+        Hello Doctor<cite title="Source Title"></cite>
+      </figcaption>
+    </figure>
+    <h1>Current Appointment</h1>
+
+    <div class="container">
+      <table>
+        <thead>
+          <tr class="list">
+            <th>Sr</th>
+            <th>Name</th>
+            <th>age</th>
+            <th>Gender</th>
+            <th>Date & Time</th>
+            <th>Hospital</th>
+            <th>Disease</th>
+
+            <th>Doctor</th>
+          </tr>
+        </thead>
+        <tbody id="gettingdb"></tbody>
+      </table>
+    </div>
+    <a class="btn btn-primary rgi" id="backbtn" href="./home.html">Back</a>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyC9kkGh8iepJA52PMDLmpwVtcrEyh98rek",
+        authDomain: "myapp2-bcd98.firebaseapp.com",
+        databaseURL: "https://myapp2-bcd98-default-rtdb.firebaseio.com",
+        projectId: "myapp2-bcd98",
+        storageBucket: "myapp2-bcd98.appspot.com",
+        messagingSenderId: "936569646334",
+        appId: "1:936569646334:web:3907570ba67433369949af",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      var database = getDatabase();
+
+      let sharedinfo = localStorage.getItem("UserEmaildata");
+      document.getElementById("shared_data").innerHTML = sharedinfo;
+
+      function show() {
+        const dbref = ref(database);
+        get(child(dbref, "CurrentAppoiments/")).then((snapshot) => {
+          let darray = [];
+          snapshot.forEach((childSnapshot) => {
+            darray.push(childSnapshot.val());
+          });
+          gooo(darray);
+        });
+      }
+      show();
+
+      let ht = "";
+      function gooo(darray) {
+        darray.map((e, i) => {
+          ht += `   <tr>
+              <td>${i + 1}</td>
+              <td>${e.username}</td>
+
+              <td>${e.Age}</td>
+              <td>${e.Gender}</td>
+              <td>${e.Date} & ${e.Time}</td>
+              <td>${e.hosptal}</td>
+              <td>${e.Disease}</td>
+
+              <td>${e.doctor}</td>
+
+            </tr>`;
+        });
+        document.getElementById("gettingdb").innerHTML = ht;
+      }
+
+      document
+        .getElementById("logpage")
+        .addEventListener("click", function (e) {
+          localStorage.removeItem("primaryKey");
+          localStorage.removeItem("foriginekey");
+        });
+    </script>
+  </body>
+</html>
