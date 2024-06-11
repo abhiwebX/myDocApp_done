@@ -1,23 +1,23 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getDatabase,
   ref,
   set,
   get,
   child,
-} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC9kkGh8iepJA52PMDLmpwVtcrEyh98rek",
-  authDomain: "myapp2-bcd98.firebaseapp.com",
-  databaseURL: "https://myapp2-bcd98-default-rtdb.firebaseio.com",
-  projectId: "myapp2-bcd98",
-  storageBucket: "myapp2-bcd98.appspot.com",
-  messagingSenderId: "936569646334",
-  appId: "1:936569646334:web:3907570ba67433369949af",
+  apiKey: "AIzaSyAHShD20aBvahA-ZrrkkVdWcdTnYzvzCWk",
+  authDomain: "mydocapp-6f500.firebaseapp.com",
+  databaseURL: "https://mydocapp-6f500-default-rtdb.firebaseio.com",
+  projectId: "mydocapp-6f500",
+  storageBucket: "mydocapp-6f500.appspot.com",
+  messagingSenderId: "1002186681260",
+  appId: "1:1002186681260:web:e67f549b459681a5ee2809"
 };
 
 // Initialize Firebase
