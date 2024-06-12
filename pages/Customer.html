@@ -105,7 +105,7 @@
             placeholder="How Can we help you?"
           ></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary" id="bbb">Send</button>
       </form>
     </div>
 
@@ -126,7 +126,7 @@
         Email.send({
           Host: "smtp.elasticemail.com",
           Username: "abhijetdhekane@gmail.com",
-          Password: "768768654Abhijeet",
+          Password: "jk@dD",
           To: "abhijetdhekane@gmail.com",
           From: document.getElementById("exampleFormControlInput1").value,
           Subject: "New Contact Form Enquiry",
@@ -143,6 +143,10 @@
           swal("Good job!", "Your Query is recived", "success")
         );
       }
+
+      document.getElementById("bbb").addEventListener("click", function () {
+        swal("Good job!", "Your Query is recived", "success");
+      });
     </script>
   </body>
 </html>
